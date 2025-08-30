@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+as_cfg=/share/Configuration/certbot
+if ! test -f "${as_cfg}/active"; then
+  exit 0
+fi
+
+# Always reset the permissions
+chown root:root ${as_cfg}/
+chmod 700 ${as_cfg}/
+chown root:root ${as_cfg}/*.conf
+chmod 600 ${as_cfg}/*.conf
+
+if ! test -f ${as_cfg}/last_run; then
+  exec /usr/local/AppCentral/cappysan-certbot/bin/certbot-init
+fi
+exec /usr/local/AppCentral/cappysan-certbot/bin/certbot -q renew --no-random-sleep-on-renew "${@}"

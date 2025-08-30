@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+as_cfg=/share/Configuration/certbot
+if ! test -f "${as_cfg}/active"; then
+  exit 0
+fi
+
+rm -fr /etc/letsencrypt
+mkdir ${as_cfg}/letsencrypt
+ln -sf -T ${as_cfg}/letsencrypt /etc/letsencrypt
+
+# TODO: handle 'method' file
+domains="$(cat ${as_cfg}/domains.conf)"
+
+# Use --manual-auth-hook and --manual-cleanup-hook?
+email=$(head -c10 /dev/urandom | md5sum | head -c10)@gmail.com
+if /usr/local/AppCentral/cappysan-certbot/bin/certbot certonly -n --dns-ovh -m "${email}" --agree-tos --dns-ovh-credentials ${as_cfg}/ovh.conf -d "${domains}"; then
+  touch ${as_cfg}/last_run
+fi

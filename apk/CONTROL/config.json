@@ -1,0 +1,32 @@
+{
+  "general": {
+    "architecture": "any",
+    "conflicts": [
+      "letsencrypt"
+    ],
+    "depends": [
+      "python3(>=3.10.11)",
+      "jq"
+    ],
+    "email": "julien@cappysan.dev",
+    "firmware": "5.0.0",
+    "maintainer": "Cappysan",
+    "name": "Lets Encrypt DNS Certbot",
+    "package": "cappysan-certbot",
+    "version": "4.2.0-1",
+    "developer": "Electronic Frontier Foundation",
+    "website": "https://gitlab.com/cappysan/asustor/certbot"
+  },
+  "register": {
+    "share-folder": [
+      {
+        "name": "Configuration",
+        "description": "Application configuration"
+      }
+    ],
+    "boot-priority": {
+      "start-order": 70,
+      "stop-order": 30
+    }
+  }
+}
