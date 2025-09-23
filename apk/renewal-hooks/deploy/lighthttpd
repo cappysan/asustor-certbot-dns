@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 #
 # The shell variable $RENEWED_LINEAGE will point to the config live subdirectory,
-# (eg: "/etc/letsencrypt/live/example.com") containing the new certificates and 
+# (eg: "/etc/letsencrypt/live/example.com") containing the new certificates and
 # keys;
 # The shell variable $RENEWED_DOMAINS will contain a space-delimited list
 # of renewed certificate domains.
@@ -25,7 +25,7 @@
 ls -la ${RENEWED_LINEAGE}
 
 # crt = pem + key
-cat "${RENEWED_LINEAGE}"/fullchain.pem "${RENEWED_LINEAGE}"/privkey.pem > /usr/builtin/etc/certificate/ssl.pem 
+cat "${RENEWED_LINEAGE}"/fullchain.pem "${RENEWED_LINEAGE}"/privkey.pem > /usr/builtin/etc/certificate/ssl.pem
 cat "${RENEWED_LINEAGE}"/privkey.pem > /usr/builtin/etc/certificate/ssl.key
 cat "${RENEWED_LINEAGE}"/cert.pem    > /usr/builtin/etc/certificate/ssl.crt
 

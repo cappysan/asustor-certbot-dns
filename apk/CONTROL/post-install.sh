@@ -27,8 +27,13 @@ mkdir -p ${as_cfg}
 chown root:root ${as_cfg}
 chmod 700 ${as_cfg}
 
+# Copy available configurations
 cp -rnv ${APKG_PKG_DIR}/conf.dist/* ${as_cfg}
 chmod 600 ${as_cfg}/*.conf
+
+# Copy deploy scripts
+mkdir -p ${as_cfg}/letsencrypt/renewal-hooks/deploy
+cp -rv  ${APKG_PKG_DIR}/renewal-hooks/deploy/* ${as_cfg}/letsencrypt/renewal-hooks/deploy/
 
 # it's the only method for now
 echo "ovh" > ${as_cfg}/method
