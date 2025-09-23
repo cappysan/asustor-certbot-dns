@@ -29,6 +29,7 @@ cat "${RENEWED_LINEAGE}"/fullchain.pem "${RENEWED_LINEAGE}"/privkey.pem > /usr/b
 cat "${RENEWED_LINEAGE}"/privkey.pem > /usr/builtin/etc/certificate/ssl.key
 cat "${RENEWED_LINEAGE}"/cert.pem    > /usr/builtin/etc/certificate/ssl.crt
 
-chmod 644 /usr/builtin/etc/certificate/ssl.crt /usr/builtin/etc/certificate/ssl.key /usr/builtin/etc/certificate/ssl.pem
+chmod 644 /usr/builtin/etc/certificate/ssl.crt
+chmod 640 /usr/builtin/etc/certificate/ssl.key /usr/builtin/etc/certificate/ssl.pem
 
 /etc/init.d/S41lighttpd restart
