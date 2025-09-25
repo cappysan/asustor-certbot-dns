@@ -21,7 +21,7 @@ pipx inject -f certbot certbot-dns-ovh==${APKG_PKG_VER%-*}
 chown -R 0:0 ${APKG_PKG_DIR}
 
 # Create a configuration folder for this application
-as_cfg=/share/Configuration/certbot
+as_cfg=/share/Configuration/certbot-dns
 
 mkdir -p ${as_cfg}
 chown root:root ${as_cfg}
@@ -30,13 +30,12 @@ chmod 700 ${as_cfg}
 # Copy available configurations
 cp -rnv ${APKG_PKG_DIR}/conf.dist/* ${as_cfg}
 chmod 600 ${as_cfg}/*.conf
+echo "--dns-ovh --dns-ovh-credentials ${as_cfg}/ovh.conf" > ${as_cfg}/method.conf
 
 # Copy deploy scripts
 mkdir -p ${as_cfg}/letsencrypt/renewal-hooks/deploy
-cp -rv  ${APKG_PKG_DIR}/renewal-hooks/deploy/* ${as_cfg}/letsencrypt/renewal-hooks/deploy/
+cp -rv ${APKG_PKG_DIR}/renewal-hooks/deploy/* ${as_cfg}/letsencrypt/renewal-hooks/deploy/
 
-# it's the only method for now
-echo "ovh" > ${as_cfg}/method
 
 # Make backup of the crontab
 crontab -l > ${as_cfg}/crontab.$(date +%Y-%m-%d_%H%M%Y).bak

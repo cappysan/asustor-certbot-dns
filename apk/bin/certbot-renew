@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-as_cfg=/share/Configuration/certbot
+as_cfg=/share/Configuration/certbot-dns
 if ! test -f "${as_cfg}/active"; then
   exit 0
 fi
@@ -11,6 +11,10 @@ chown root:root ${as_cfg}/*.conf
 chmod 600 ${as_cfg}/*.conf
 
 if ! test -f ${as_cfg}/last_run; then
-  exec /usr/local/AppCentral/cappysan-certbot/bin/certbot-init
+  exec /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot-init "${@}"
 fi
-exec /usr/local/AppCentral/cappysan-certbot/bin/certbot -q renew --no-random-sleep-on-renew "${@}"
+
+echo /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot -q renew --no-random-sleep-on-renew "${@}" >&2
+if /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot -q renew --no-random-sleep-on-renew "${@}"; then
+  date > ${as_cfg}/last_run
+fi

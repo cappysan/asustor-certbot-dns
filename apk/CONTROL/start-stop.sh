@@ -2,11 +2,11 @@
 #
 # Use the presence/absence of a file to indicate if certbot should run.
 #
-as_cfg=/share/Configuration/certbot
+as_cfg=/share/Configuration/certbot-dns
 case $1 in
 	start|restart)
 		touch "${as_cfg}/active"
-    /usr/local/AppCentral/cappysan-certbot/bin/certbot-renew
+    /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot-renew
 		;;
 
 	stop)
