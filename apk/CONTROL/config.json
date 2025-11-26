@@ -13,7 +13,7 @@
     "maintainer": "Cappysan",
     "name": "Lets Encrypt DNS Certbot",
     "package": "cappysan-certbot-dns",
-    "version": "4.2.0-r1",
+    "version": "4.2.0-r2",
     "developer": "Electronic Frontier Foundation",
     "website": "https://gitlab.com/cappysan/asustor/certbot-dns"
   },

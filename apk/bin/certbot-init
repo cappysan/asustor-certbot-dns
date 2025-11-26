@@ -1,6 +1,13 @@
 #!/usr/bin/env sh
+#
+# NAME
+#      certbot-init - create the certificates
+#
+syslog --log 0 --level 0 --user SYSTEM --event "Initializing certbot certificates..."
+
 as_cfg=/share/Configuration/certbot-dns
 if ! test -f "${as_cfg}/active"; then
+  syslog --log 0 --level 1 --user SYSTEM --event "Certbot certificates are deactivated."
   exit 0
 fi
 
@@ -14,7 +21,11 @@ method="$(cat ${as_cfg}/method.conf)"
 # Use --manual-auth-hook and --manual-cleanup-hook?
 email=$(head -c10 /dev/urandom | md5sum | head -c10)@gmail.com
 
+syslog --log 0 --level 0 --user SYSTEM --event "Requesting new certificate..."
 echo /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot certonly "${@}" -n -m "${email}" --agree-tos ${method} -d "${domains}" >&2
 if /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot certonly "${@}" -n -m "${email}" --agree-tos ${method} -d "${domains}"; then
+  syslog --log 0 --level 0 --user SYSTEM --event "Requesting new certificate: Success"
   date > ${as_cfg}/last_run
+else
+  syslog --log 0 --level 1 --user SYSTEM --event "Requesting new certificate: Failure"
 fi
