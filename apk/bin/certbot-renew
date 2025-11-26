@@ -22,7 +22,7 @@ if ! test -f ${as_cfg}/last_run; then
   exec /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot-init "${@}"
 fi
 
-syslog --log 0 --level 0 --user SYSTEM --event "Requesting certificate renewal..."
+syslog --log 0 --level 0 --user SYSTEM --quiet --event "Requesting certificate renewal..."
 echo /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot -q renew --no-random-sleep-on-renew "${@}" >&2
 if /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot -q renew --no-random-sleep-on-renew "${@}"; then
   date > ${as_cfg}/last_run
