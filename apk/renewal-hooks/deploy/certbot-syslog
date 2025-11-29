@@ -1,2 +1,0 @@
-#!/usr/bin/env sh
-syslog --log 0 --level 0 --user SYSTEM --event "Certificate renewal success. Running renewal-hooks..."

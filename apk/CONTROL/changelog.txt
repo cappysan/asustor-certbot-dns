@@ -1,5 +1,14 @@
 # Changelog
 
+Changes relevant to the users of Certbot DNS are documented here.
+
+
+## 4.2.0-r4 - UNRELEASED
+
+### Changed
+
+- Change renewal-hooks and ordered them.
+
 
 ## 4.2.0-r3 - 2025-11-26
 

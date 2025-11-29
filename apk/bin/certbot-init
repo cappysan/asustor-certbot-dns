@@ -11,6 +11,11 @@ if ! test -f "${as_cfg}/active"; then
   exit 0
 fi
 
+# For every renewal hook that we find, install it before deploy section.
+for as_hook in /usr/local/AppCentral/*/renewal-hooks/deploy/*; do
+  cp -f "${as_hook}" /usr/local/AppCentral/cappysan-certbot-dns/renewal-hooks/deploy/
+done
+
 rm -fr /etc/letsencrypt
 mkdir -p ${as_cfg}/letsencrypt
 ln -sf -T ${as_cfg}/letsencrypt /etc/letsencrypt

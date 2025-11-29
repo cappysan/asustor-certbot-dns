@@ -1,35 +1,5 @@
 #!/usr/bin/env sh
 #
-# The shell variable $RENEWED_LINEAGE will point to the config live subdirectory,
-# (eg: "/etc/letsencrypt/live/example.com") containing the new certificates and
-# keys;
-# The shell variable $RENEWED_DOMAINS will contain a space-delimited list
-# of renewed certificate domains.
-#
-# To run without renewing:
-#
-# RENEWED_LINEAGE=/etc/letsencrypt/live/example.com /etc/letsencrypt/renewal-hooks/deploy/lighthttpd
-#
-# lighthttpd is the webserver used to serve the Asustor admin pages.
-# It is located: /usr/etc/lighttpd
-#
-# The certificates are in: /share/Configuration/certbot-dns/letsencrypt/live/
-# and are copied in a convulated way in /usr/builtin/etc/certificate/
-#
-# In theory, we should have at least two entries in
-#   /usr/builtin/etc/certificate/certificate.json
-# and a UUID that points to
-#   /usr/builtin/etc/certificate/ssl/{UUID}/
-#
-#
-ls -la ${RENEWED_LINEAGE}
-
-# crt = pem + key
-cat "${RENEWED_LINEAGE}"/fullchain.pem "${RENEWED_LINEAGE}"/privkey.pem > /usr/builtin/etc/certificate/ssl.pem
-cat "${RENEWED_LINEAGE}"/privkey.pem > /usr/builtin/etc/certificate/ssl.key
-cat "${RENEWED_LINEAGE}"/cert.pem    > /usr/builtin/etc/certificate/ssl.crt
-
-chmod 644 /usr/builtin/etc/certificate/ssl.crt
-chmod 640 /usr/builtin/etc/certificate/ssl.key /usr/builtin/etc/certificate/ssl.pem
-
-/etc/init.d/S41lighttpd restart
+if test -f /etc/init.d/S41lighttpd; then
+  /etc/init.d/S41lighttpd restart
+fi

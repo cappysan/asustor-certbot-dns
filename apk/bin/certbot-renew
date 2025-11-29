@@ -12,6 +12,11 @@ if ! test -f "${as_cfg}/active"; then
   exit 0
 fi
 
+# For every renewal hook that we find, install it before deploy section.
+for as_hook in /usr/local/AppCentral/*/renewal-hooks/deploy/*; do
+  cp -f "${as_hook}" /usr/local/AppCentral/cappysan-certbot-dns/renewal-hooks/deploy/
+done
+
 # Always reset the permissions
 chown root:root ${as_cfg}/
 chmod 700 ${as_cfg}/
