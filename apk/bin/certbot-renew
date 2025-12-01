@@ -8,7 +8,7 @@
 #   --force-renewal    Force the renewal of the certificate
 #
 as_cfg=/share/Configuration/certbot-dns
-if ! test -f "${as_cfg}/active"; then
+if test ! -f "${as_cfg}/active"; then
   exit 0
 fi
 
@@ -23,7 +23,7 @@ chmod 700 ${as_cfg}/
 chown root:root ${as_cfg}/*.conf
 chmod 600 ${as_cfg}/*.conf
 
-if ! test -f ${as_cfg}/last_run; then
+if test ! -f ${as_cfg}/last_run; then
   exec /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot-init "${@}"
 fi
 

@@ -30,15 +30,19 @@ chmod 700 ${as_cfg}
 # Copy available configurations
 cp -rnv ${APKG_PKG_DIR}/conf.dist/* ${as_cfg}
 chmod 600 ${as_cfg}/*.conf
-echo "--dns-ovh --dns-ovh-credentials ${as_cfg}/ovh.conf" > ${as_cfg}/method.conf
+# Install sample script
+if test ! -f ${as_cfg}/ovh.conf; then
+  echo "--dns-ovh --dns-ovh-credentials ${as_cfg}/ovh.conf" > ${as_cfg}/method.conf
+fi
 
 # Copy deploy scripts
 mkdir -p ${as_cfg}/letsencrypt/renewal-hooks/deploy
 cp -rv ${APKG_PKG_DIR}/renewal-hooks/deploy/* ${as_cfg}/letsencrypt/renewal-hooks/deploy/
 
-
 # Make backup of the crontab
-crontab -l > ${as_cfg}/crontab.$(date +%Y-%m-%d_%H%M%Y).bak
+if test ! -f ${as_cfg}/crontab.$(date +%Y-%m-%d_%H%M%Y).bak; then
+  crontab -l > ${as_cfg}/crontab.$(date +%Y-%m-%d_%H%M%Y).bak
+fi
 
 # Add a line to crontab
 (crontab -l ; echo "0 */8 * * * ${APKG_PKG_DIR}/bin/certbot-renew") | sort | uniq | crontab -

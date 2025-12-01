@@ -28,14 +28,15 @@ email=$(head -c10 /dev/urandom | md5sum | head -c10)@gmail.com
 
 syslog --log 0 --level 0 --user SYSTEM --event "Requesting new certificate..."
 echo /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot certonly "${@}" -n -m "${email}" --agree-tos ${method} -d "${domains}" >&2
-if /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot certonly "${@}" -n -m "${email}" --agree-tos ${method} -d "${domains}" | tee /tmp/certbot.log; then
+if /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot certonly "${@}" -n -m "${email}" --agree-tos ${method} -d "${domains}" 2>&1 | tee /tmp/certbot.log; then
   if grep -q 'no action taken.' /tmp/certbot.log; then
     syslog --log 0 --level 0 --user SYSTEM --event "Requesting new certificate: Success. Certificate not due for renewal."
+  elif grep -q 'unexpected error' /tmp/certbot.log; then
+    syslog --log 0 --level 0 --user SYSTEM --event "Requesting new certificate: Success. Certificate generation error."
   else
     syslog --log 0 --level 0 --user SYSTEM --event "Requesting new certificate: Success. Certificate renewed."
-    date > ${as_cfg}/last_update
+    date > ${as_cfg}/last_run
   fi
-  date > ${as_cfg}/last_run
 else
   syslog --log 0 --level 1 --user SYSTEM --event "Requesting new certificate: Failure"
 fi
