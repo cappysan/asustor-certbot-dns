@@ -17,7 +17,7 @@ license = "MIT"
 # Other tools
 # ------------------------------------------------------------------------------
 [tool.bumpversion]
-current_version = "4.2.0-r4"
+current_version = "4.2.0-r5"
 parse = """(?x)
   (?P<major>0|[1-9]\\d*)\\.
   (?P<minor>0|[1-9]\\d*)\\.
