@@ -11,11 +11,11 @@
     "email": "julien@cappysan.dev",
     "firmware": "5.0.0",
     "maintainer": "Cappysan",
-    "name": "Lets Encrypt DNS Certbot",
-    "package": "cappysan-certbot-dns",
+    "name": "Certbot",
+    "package": "cappysan-certbot",
     "version": "4.2.0-r4",
     "developer": "ISRG",
-    "website": "https://gitlab.com/cappysan/asustor/certbot-dns"
+    "website": "https://gitlab.com/cappysan/asustor/certbot"
   },
   "register": {
     "share-folder": [

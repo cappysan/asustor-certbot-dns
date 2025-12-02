@@ -13,7 +13,7 @@
 # lighthttpd is the webserver used to serve the Asustor admin pages.
 # It is located: /usr/etc/lighttpd
 #
-# The certificates are in: /share/Configuration/certbot-dns/letsencrypt/live/
+# The certificates are in: /share/Configuration/certbot/letsencrypt/live/
 # and are copied in a convulated way in /usr/builtin/etc/certificate/
 #
 # In theory, we should have at least two entries in

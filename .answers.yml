@@ -14,20 +14,20 @@ answers:
   maintainer: "Cappysan"
   developer: "ISRG"
 
-  project_name: "Lets Encrypt DNS Certbot"
-  project_slug: "cappysan-certbot-dns"
+  project_name: "Asustor Certbot APK"
+  project_slug: "cappysan-certbot"
   project_description: "Asustor Certbot DNS application"
 
-  project_url: "https://gitlab.com/cappysan/asustor/certbot-dns"
+  project_url: "https://gitlab.com/cappysan/asustor/certbot"
   documentation_url: ""
 
   license: "MIT"
-  version: "4.2.0-r3"
+  version: "4.2.0-r4"
 
   has_pages: False
   keep_placeholders: False
 
   # Hidden fields
   creation_year: "2025"
-  last_update: "2025-11-29 12:21:32"
+  last_update: "2025-12-02 13:19:19"
   copyright_string: "Cappysan, Julien Lecomte, and contributors"

@@ -21,19 +21,17 @@ pipx inject -f certbot certbot-dns-ovh==${APKG_PKG_VER%-*}
 chown -R 0:0 ${APKG_PKG_DIR}
 
 # Create a configuration folder for this application
-as_cfg=/share/Configuration/certbot-dns
+as_cfg=/share/Configuration/certbot
 
-mkdir -p ${as_cfg}
-chown root:root ${as_cfg}
-chmod 700 ${as_cfg}
+if test -d ${as_cfg}; then
+  mkdir -p ${as_cfg}
+  chown root:root ${as_cfg}
+  chmod 750 ${as_cfg}
+fi
 
-# Copy available configurations
+# Copy available configurations if they don't exist
 cp -rnv ${APKG_PKG_DIR}/conf.dist/* ${as_cfg}
 chmod 600 ${as_cfg}/*.conf
-# Install sample script
-if test ! -f ${as_cfg}/ovh.conf; then
-  echo "--dns-ovh --dns-ovh-credentials ${as_cfg}/ovh.conf" > ${as_cfg}/method.conf
-fi
 
 # Copy deploy scripts
 mkdir -p ${as_cfg}/letsencrypt/renewal-hooks/deploy
@@ -46,3 +44,7 @@ fi
 
 # Add a line to crontab
 (crontab -l ; echo "0 */8 * * * ${APKG_PKG_DIR}/bin/certbot-renew") | sort | uniq | crontab -
+
+# Start the service in case configuration already existed
+touch "${as_cfg}/active"
+${APKG_PKG_DIR}/bin/certbot-renew

@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 #
 # Remove the crontab line
-crontab -l | sed '/certbot/d' | crontab -
+crontab -l | sed '/cappysan-certbot/d' | crontab -
 
-# Remove the symlink
-rm /etc/letsencrypt
+rm -f /etc/letsencrypt

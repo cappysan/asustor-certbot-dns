@@ -1,9 +1,15 @@
 # Changelog
 
-Changes relevant to the users of Certbot DNS are documented here.
+Changes relevant to the users of Asustor Certbot APK are documented here.
 
+## 4.2.0-r5 - 2025-11-02
 
-## 4.2.0-r4 - UNRELEASED
+### Changed
+
+- Renamed to 'certbot'.
+- Improved logs.
+
+## 4.2.0-r4 - 2025-11-29
 
 ### Changed
 

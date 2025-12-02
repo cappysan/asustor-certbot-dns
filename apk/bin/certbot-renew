@@ -7,15 +7,17 @@
 #
 #   --force-renewal    Force the renewal of the certificate
 #
-as_cfg=/share/Configuration/certbot-dns
+as_cfg=/share/Configuration/certbot
+
+function logger() {
+  echo "${@}" >&2
+  syslog --log 0 --level 0 --user SYSTEM --event "${@}"
+}
+
 if test ! -f "${as_cfg}/active"; then
+  logger "Certbot certificates are deactivated."
   exit 0
 fi
-
-# For every renewal hook that we find, install it before deploy section.
-for as_hook in /usr/local/AppCentral/*/renewal-hooks/deploy/*; do
-  cp -f "${as_hook}" /usr/local/AppCentral/cappysan-certbot-dns/renewal-hooks/deploy/
-done
 
 # Always reset the permissions
 chown root:root ${as_cfg}/
@@ -23,12 +25,26 @@ chmod 700 ${as_cfg}/
 chown root:root ${as_cfg}/*.conf
 chmod 600 ${as_cfg}/*.conf
 
+# last_run records last success
 if test ! -f ${as_cfg}/last_run; then
-  exec /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot-init "${@}"
+  exec /usr/local/AppCentral/cappysan-certbot/bin/certbot-init "${@}"
 fi
 
-syslog --log 0 --level 0 --user SYSTEM --quiet --event "Requesting certificate renewal..."
-echo /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot -q renew --no-random-sleep-on-renew "${@}" >&2
-if /usr/local/AppCentral/cappysan-certbot-dns/bin/certbot -q renew --no-random-sleep-on-renew "${@}"; then
-  date > ${as_cfg}/last_run
+# For every renewal hook that we find, install it before deploy section.
+for as_hook in /usr/local/AppCentral/*/renewal-hooks/deploy/*; do
+  cp -f "${as_hook}" /usr/local/AppCentral/cappysan-certbot/renewal-hooks/deploy/
+done
+
+logger "Requesting certificate renewal..."
+echo /usr/local/AppCentral/cappysan-certbot/bin/certbot renew --no-random-sleep-on-renew "${@}" >&2
+if /usr/local/AppCentral/cappysan-certbot/bin/certbot renew --no-random-sleep-on-renew "${@}" 2>&1 | tee /tmp/certbot.log ; then
+  if grep -q 'Certificate not yet due for renewal' /tmp/certbot.log; then
+    logger "Rewewing certificate: Pass. Certificate not due for renewal."
+  else
+    logger "Renewing certificate: Success."
+    date > ${as_cfg}/last_run
+  fi
+else
+  echo "${@}" >&2
+  syslog --log 0 --level 1 --user SYSTEM --event "Renewing certificate: Failure"
 fi
