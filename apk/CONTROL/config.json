@@ -5,8 +5,7 @@
       "letsencrypt"
     ],
     "depends": [
-      "python3(>=3.10.11)",
-      "jq"
+      "python3(>=3.10.11)"
     ],
     "email": "julien@cappysan.dev",
     "firmware": "5.0.0",

@@ -2,12 +2,13 @@
 
 Changes relevant to the users of Asustor Certbot APK are documented here.
 
-## 4.2.0-r6 - 2025-11-03
+## 4.2.0-r7 - 2025-11-03
 
 ### Changed
 
 - Renamed to 'certbot'.
 - Improved logs.
+- Removed jq requirement
 
 ## 4.2.0-r4 - 2025-11-29
 
