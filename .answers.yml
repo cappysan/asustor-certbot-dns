@@ -14,7 +14,7 @@ answers:
   maintainer: "Cappysan"
   developer: "ISRG"
 
-  project_name: "Asustor Certbot APK"
+  project_name: "Certbot"
   project_slug: "cappysan-certbot"
   project_description: "Asustor Certbot DNS application"
 
@@ -22,7 +22,7 @@ answers:
   documentation_url: ""
 
   license: "MIT"
-  version: "4.2.0-r4"
+  version: "4.2.0-r5"
 
   has_pages: False
   keep_placeholders: False
