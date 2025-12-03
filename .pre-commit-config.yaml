@@ -45,7 +45,7 @@ repos:
         - tomli
 
   - repo: "https://github.com/andreoliwa/nitpick"
-    rev: v0.38.0
+    rev: v0.38.1
     hooks:
       - id: nitpick-check
         name: "run nitpick check"
