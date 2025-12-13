@@ -3,7 +3,8 @@
 # NAME
 #      certbot-init - create the certificates
 #
-as_cfg=/share/Configuration/certbot
+. /usr/local/AppCentral/cappysan-certbot/.env.install
+cd ${APKG_PKG_DIR:-/nonexistent} || exit 1
 
 function logger() {
   echo "${@}" >&2
@@ -11,26 +12,29 @@ function logger() {
 }
 logger "Initializing certbot certificates..."
 
-if test ! -f "${as_cfg}/active"; then
+if test ! -f "${APKG_CFG_DIR}/active"; then
   logger "Certbot certificates are deactivated."
   exit 0
 fi
 
 # For every renewal hook that we find, install it before deploy section.
 for as_hook in /usr/local/AppCentral/*/renewal-hooks/deploy/*; do
-  # Overwrite since it could be more recent
-  cp -f "${as_hook}" /usr/local/AppCentral/cappysan-certbot/renewal-hooks/deploy/
+  # Overwrite since it could be more recent,
+  # Use rsync to avoid a warning with `cp`
+  rsync -a "${as_hook}" /usr/local/AppCentral/cappysan-certbot/renewal-hooks/deploy/
 done
 
 if test -d /etc/letsencrypt; then
   rm -fr /etc/letsencrypt
 fi
-mkdir -p ${as_cfg}/letsencrypt
-ln -sf -T ${as_cfg}/letsencrypt /etc/letsencrypt
+mkdir -p ${APKG_CFG_DIR}/letsencrypt
+ln -sf -T ${APKG_CFG_DIR}/letsencrypt /etc/letsencrypt
 
-email=$(head -c10 /dev/urandom | md5sum | head -c10)@gmail.com
-domains="$(cat ${as_cfg}/domains.conf)"
-commandline="$(cat ${as_cfg}/commandline.conf)"
+# Generate a random email
+email=$(head -c10 /dev/urandom | md5sum | head -c14)@gmail.com
+domains="$(cat ${APKG_CFG_DIR}/domains.conf)"
+provider="$(cat ${APKG_CFG_DIR}/provider.conf | xargs)"
+commandline="$(cat ${APKG_CFG_DIR}/${provider}.cmdline.conf)"
 
 # Use --manual-auth-hook and --manual-cleanup-hook?
 logger "Requesting new certificate..."
@@ -42,7 +46,7 @@ if /usr/local/AppCentral/cappysan-certbot/bin/certbot certonly "${@}" -n -m "${e
     logger "Requesting new certificate: Success. Certificate generation error."
   else
     logger "Requesting new certificate: Success."
-    date > ${as_cfg}/last_run
+    date > ${APKG_CFG_DIR}/last_run
   fi
 else
   echo "${@}" >&2

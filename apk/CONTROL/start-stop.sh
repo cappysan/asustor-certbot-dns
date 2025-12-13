@@ -1,27 +1,29 @@
 #!/usr/bin/env sh
+# SPDX-License-Identifier: MIT
 #
 # Use the presence/absence of a file to indicate if certbot should run.
 #
-as_cfg=/share/Configuration/certbot
+. /usr/local/AppCentral/cappysan-certbot/.env.install
+cd ${APKG_PKG_DIR:-/nonexistent} || exit 1
 
 if test ! -e /etc/letsencrypt; then
-  mkdir -p ${as_cfg}/letsencrypt
-  ln -sf -T ${as_cfg}/letsencrypt /etc/letsencrypt
+  mkdir -p ${APKG_CFG_DIR}/letsencrypt
+  ln -sf -T ${APKG_CFG_DIR}/letsencrypt /etc/letsencrypt
 fi
 
 case $1 in
   start)
-    touch "${as_cfg}/active"
-    /usr/local/AppCentral/cappysan-certbot/bin/certbot-renew
+    touch "${APKG_CFG_DIR}/active"
+    ./bin/certbot-renew
     ;;
 
   stop)
-    rm -f "${as_cfg}/active" 2>/dev/null
+    rm -f "${APKG_CFG_DIR}/active" 2>/dev/null
     ;;
 
   restart)
-    $0 stop
-    $0 start
+    ./CONTROL/start-stop.sh stop
+    ./CONTROL/start-stop.sh start
     ;;
 
   *)

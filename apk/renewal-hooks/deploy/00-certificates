@@ -34,5 +34,5 @@ chmod 644 /usr/builtin/etc/certificate/ssl.crt
 chmod 640 /usr/builtin/etc/certificate/ssl.key /usr/builtin/etc/certificate/ssl.pem
 
 # Make a p12 version
-openssl pkcs12 -export -in "/usr/builtin/etc/certificate/ssl.crt" -inkey "/usr/builtin/etc/certificate/ssl.key" -out "/usr/builtin/etc/certificate/ssl.p12" -passout pass:
+openssl pkcs12 -export -in "/usr/builtin/etc/certificate/chain.crt" -inkey "/usr/builtin/etc/certificate/ssl.key" -out "/usr/builtin/etc/certificate/ssl.p12" -passout pass:
 chmod 600 /usr/builtin/etc/certificate/ssl.key

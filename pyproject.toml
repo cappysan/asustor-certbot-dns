@@ -4,8 +4,9 @@
 # ------------------------------------------------------------------------------
 # Setup
 # ------------------------------------------------------------------------------
+[project]
 name = "cappysan-certbot"
-version = "4.2.0-r7"
+version = "5.2.2-r1"
 authors = [
   {name = "Julien Lecomte", email = "julien@cappysan.dev"}
 ]
@@ -13,21 +14,25 @@ readme  = "README.md"
 description = "Asustor Certbot DNS application"
 license = "MIT"
 
+[project.urls]
+
+Homepage = "https://gitlab.com/cappysan/asustor/certbot"
+
+
+
 # ------------------------------------------------------------------------------
 # Other tools
 # ------------------------------------------------------------------------------
 [tool.bumpversion]
-current_version = "4.2.0-r7"
+current_version = "5.2.2-r1"
+
 parse = """(?x)
   (?P<major>0|[1-9]\\d*)\\.
   (?P<minor>0|[1-9]\\d*)\\.
   (?P<patch>0|[1-9]\\d*)
-  (?:
-    -                               # dash separator for pre-release section
-    (?P<seg_l>r)                    # release label
-    (?:(?P<seg_n>0|[1-9]\\d*))      # version number
-  )?                                # release section is optional
+  -r(?P<rev>0|[1-9]\\d*)
 """
+
 search = "{current_version}"
 replace = "{new_version}"
 regex = false
@@ -49,27 +54,25 @@ pre_commit_hooks = [
 ]
 post_commit_hooks = []
 
+
 serialize = [
-  "{major}.{minor}.{patch}-{seg_l}{seg_n}",
-  "{major}.{minor}.{patch}",
+  "{major}.{minor}.{patch}-r{rev}",
 ]
 
-[tool.bumpversion.parts.seg_l]
-values = [ "r"]
-optional_value = "r"
-
-[tool.bumpversion.parts.seg_n]
+[tool.bumpversion.parts.rev]
 first_value = "1"
 
-# .answers.yml contains the current version in "version"/"scaffold.version"
 [[tool.bumpversion.files]]
 filename = "apk/CONTROL/config.json"
 
+# .answers.yml contains the current version in "version"/"scaffold.version"
 [[tool.bumpversion.files]]
 filename = ".answers.yml"
 
+# pyproject.toml contains the current version in "tool.bumpversion.current_version"
 [[tool.bumpversion.files]]
 filename = "pyproject.toml"
+
 
 [tool.codespell]
 # https://github.com/codespell-project/codespell/blob/main/README.rst
@@ -81,6 +84,7 @@ builtin = "clear,informal,rare,names"
 ignore-words = "support/codespell.exclude"
 ignore-multiline-regex = "# codespell: off\n.*# codespell: on\n"
 check-filenames = ""
+
 
 [tool.nitpick]
 style = [

@@ -5,53 +5,46 @@ Asustor APK package for Certbot, the free, open source software tool certificate
 
 ## Table of contents
 1. [Installation](#installation)  
-2. [Configuration](#configuration)  
-3. [Help Wanted](#help)  
-4. [Support & Sponsorship](#support)  
-5. [License](#license)  
-6. [Links](#links)  
+2. [Support & Sponsorship](#support)  
+3. [License](#license)  
+4. [Links](#links)  
 
 
 ## Installation <a name="installation"></a>
 
 The APK application is available as a GitLab release, and on [https://asustor.cappysan.dev/](https://asustor.cappysan.dev/)
 
-The APK application is not available as an Asustor App Central application as Asustor does not accept duplicates, even if one is DNS verification based and not the other, nor applications without a UI.
+The APK application is not available as an Asustor App Central application as Asustor does not accept duplicates nor applications without a UI.
 
 
-## Configuration <a name="configuration"></a>
+### Usage
 
-- Install the application.
-
-- A share folder named "Configuration" will be created.
-
-- To be able to edit the "Configuration" folder:
-
-  - Either ssh as root into the box, and enter the `/share/Configuration/certbot` folder;
-  - Or, share the "Configuration" folder, via NFS for example, to edit it on your local machine;
-  - Or, use the File Explorer builtin in the NAS interface;
-
-- Edit the following files:
-
-  - `certbot/domains.conf`: Set the wildcard domain you wish to have certificates for.
-
-  - `commandline.conf`: Enter a command line to run in addition to the default commands. For example: `--dns-ovh --dns-ovh-credentials /share/Configuration/certbot/ovh.conf`
-
-  - `ovh.conf`: Free form file with credentials for OVH.
-
-- Either:
-
-  - De-activate and re-activate the application to generate the certificates;
-  - Or, run `/usr/local/AppCentral/cappysan-certbot/bin/certbot-renew`
-
-- Logs will be visible in command line, but also in the builtin syslog viewer on the NAS interface.
+A brief usage guide can be found below. A more complete step-by-step guide is available on [https://blog.cappysan.dev](https://blog.cappysan.dev) in the Asustor section.
 
 
-## Help Wanted <a name="help"></a>
+### Application Installation <a name="installation"></a>
 
-This package could benefit for having a UI, in order to not need manual configuration.
+**Step 1**
 
-Any help in creating this UI builtin the Asustor interface is appreciated.
+- Download the APK file from Cappysan's Asustor website ([https://asustor.cappysan.dev/2025/12/03/certbot](https://asustor.cappysan.dev/2025/12/03/certbot)  
+- Enter the Asustor App Center from your Asustor NAS user interface  
+- Enter the 'Management" tab in the App Center  
+- Enter the "Manual Install" left tab from the "Management" tab  
+- Select the previously downloaded file for the "Browse" input box  
+- Click "Upload" and follow further instructions from pop-up box  
+
+**Step 2**
+
+In order to secure the newly created "Configuration" shared folder:
+
+- Enter the "Access Control" tab in the App Center  
+- Enter the "Shared folders" left tab from the "Access Control" tab  
+- Select the "Configuration" folder to allow only the required users to modify the configuration  
+
+
+### Configuration
+
+Files within the `Configuration` shared folder can be modified via SSH or by exporting the shared folder through NFS, SMB, FTP, ...
 
 
 ## Support & Sponsorship <a name="support"></a>
@@ -78,7 +71,8 @@ Please refer to the upstream software documentation for details on their respect
 
 ## Links <a name="links"></a>
 
-  * Website: [https://asustor.cappysan.dev/](https://asustor.cappysan.dev/)
-  * GitLab: [https://gitlab.com/cappysan/asustor/vim](https://gitlab.com/cappysan/asustor/certbot-dns)
-  * GitHub: [https://github.com/cappysan/asustor-vim](https://github.com/cappysan/asustor-certbot-dns)
+  * Asustor tutorial blog website: [https://blog.cappysan.dev/](https://blog.cappysan.dev/)
+  * Asustor side-loading website: [https://asustor.cappysan.dev/](https://asustor.cappysan.dev/)
+  * GitLab: [https://gitlab.com/cappysan/asustor/certbot](https://gitlab.com/cappysan/asustor/certbot)
+  * GitHub: [https://github.com/cappysan/asustor-certbot](https://github.com/cappysan/asustor-certbot)
   * Discord: [https://discord.gg/SsY3CAdp4Q](https://discord.gg/SsY3CAdp4Q)

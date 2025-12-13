@@ -7,7 +7,7 @@ answers:
   # File generated with mk-scaffold:
   #   cf. nitpick/scaffold-tpl-version-check.toml
   template_used: "https://gitlab.com/cappysan/scaffolds/asustor-template.git"
-  template_used_version: "1.0.0"
+  template_used_version: "1.1.0-r2"
 
   author: "Julien Lecomte"
   email: "julien@cappysan.dev"
@@ -16,18 +16,27 @@ answers:
 
   project_name: "Certbot"
   project_slug: "cappysan-certbot"
-  project_description: "Asustor Certbot DNS application"
-
   project_url: "https://gitlab.com/cappysan/asustor/certbot"
-  documentation_url: ""
+  project_description: "Asustor Certbot DNS application"
+  project_path: "asustor/certbot"
 
-  license: "MIT"
-  version: "4.2.0-r7"
+  has_documentation: False
+  documentation_url: "https://example.com"
+  has_documentation_todo: False
+  encryption_key_url: "https://gitlab.com/user.gpg"
 
   has_pages: False
+  has_pages_on_main: False
+  has_releases: True
+  has_changelog: True
+
+  license: "MIT"
+  version: "5.2.2-r1"
+  version_style: "semver-rev"
+
   keep_placeholders: False
+  copyright_string: "Cappysan, Julien Lecomte, and contributors"
 
   # Hidden fields
   creation_year: "2025"
-  last_update: "2025-12-02 13:19:19"
-  copyright_string: "Cappysan, Julien Lecomte, and contributors"
+  last_update: "2025-12-15 12:20:24"

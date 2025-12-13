@@ -2,13 +2,33 @@
 
 Changes relevant to the users of Asustor Certbot APK are documented here.
 
+## 5.2.2-r1 - 2025-12-15
+
+### Added
+
+- Added 'certbot-apache' plugin support.
+- Added 'certbot-dns-cloudflare' plugin support.
+- Added 'certbot-dns-digitalocean' plugin support.
+- Added 'certbot-dns-gehirn' plugin support.
+- Added 'certbot-dns-google' plugin support.
+- Added 'certbot-dns-ovh' plugin support.
+- Added 'certbot-dns-route53' plugin support.
+- Added 'certbot-nginx' plugin support.
+
+
+### Changed
+
+- Upgraded version to 5.2.2
+- Changed permissions to admin:root.
+
 ## 4.2.0-r7 - 2025-11-03
 
 ### Changed
 
 - Renamed to 'certbot'.
 - Improved logs.
-- Removed jq requirement
+- Removed jq requirement.
+
 
 ## 4.2.0-r4 - 2025-11-29
 
@@ -21,8 +41,8 @@ Changes relevant to the users of Asustor Certbot APK are documented here.
 
 ### Added
 
-- Added syslog logging to the application
-- Added documentation in README.md and on https://asustor.cappysan.dev
+- Added syslog logging to the application.
+- Added documentation in README.md and on https://asustor.cappysan.dev/
 
 
 ## 4.2.0-r1 - 2025-09-23
