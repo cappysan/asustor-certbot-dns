@@ -39,13 +39,16 @@ commandline="$(cat ${APKG_CFG_DIR}/${provider}.cmdline.conf)"
 # Use --manual-auth-hook and --manual-cleanup-hook?
 logger "Requesting new certificate..."
 echo /usr/local/AppCentral/cappysan-certbot/bin/certbot certonly "${@}" -n -m "${email}" --agree-tos ${commandline} -d "${domains}" >&2
-if /usr/local/AppCentral/cappysan-certbot/bin/certbot certonly "${@}" -n -m "${email}" --agree-tos ${commandline} -d "${domains}" 2>&1 | tee /tmp/certbot.log; then
+if /usr/local/AppCentral/cappysan-certbot/bin/certbot certonly "${@}" --post-hook "run-parts ./renewal-hooks/deploy/" \
+    -n -m "${email}" --agree-tos ${commandline} \
+    -d "${domains}" 2>&1 | tee /tmp/certbot.log; then
+
   if grep -q 'no action taken.' /tmp/certbot.log; then
-    logger "Requesting new certificate: Success. Certificate not due for renewal."
+    logger "Requesting new certificate: Certificate not due for renewal."
   elif grep -q 'unexpected error' /tmp/certbot.log; then
-    logger "Requesting new certificate: Success. Certificate generation error."
+    logger "Requesting new certificate: Certificate generation error."
   else
-    logger "Requesting new certificate: Success."
+    logger "Requesting new certificate: Renewal success."
     date > ${APKG_CFG_DIR}/last_run
   fi
 else

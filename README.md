@@ -46,6 +46,11 @@ In order to secure the newly created "Configuration" shared folder:
 
 Files within the `Configuration` shared folder can be modified via SSH or by exporting the shared folder through NFS, SMB, FTP, ...
 
+- Change `provider.conf`, `domains.conf` and the proper `<provider>.conf` (eg: `ovh.conf`) files.
+- Restart the application in the user interface
+- Download the zip file from the certbot Configuration folder
+- Use the certificate manager to install the certificates.
+
 
 ## Support & Sponsorship <a name="support"></a>
 
@@ -72,7 +77,7 @@ Please refer to the upstream software documentation for details on their respect
 ## Links <a name="links"></a>
 
   * Asustor tutorial blog website: [https://blog.cappysan.dev/](https://blog.cappysan.dev/)
-  * Asustor side-loading website: [https://asustor.cappysan.dev/](https://asustor.cappysan.dev/)
+  * Cappysan's Asustor applications website: [https://asustor.cappysan.dev/](https://asustor.cappysan.dev/)
   * GitLab: [https://gitlab.com/cappysan/asustor/certbot](https://gitlab.com/cappysan/asustor/certbot)
   * GitHub: [https://github.com/cappysan/asustor-certbot](https://github.com/cappysan/asustor-certbot)
   * Discord: [https://discord.gg/SsY3CAdp4Q](https://discord.gg/SsY3CAdp4Q)

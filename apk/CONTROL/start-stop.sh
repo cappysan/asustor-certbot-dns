@@ -3,6 +3,9 @@
 #
 # Use the presence/absence of a file to indicate if certbot should run.
 #
+# Make a link to simplify life
+ln -sf -T $(realpath ./bin/certbot) /usr/bin/certbot
+
 . /usr/local/AppCentral/cappysan-certbot/.env.install
 cd ${APKG_PKG_DIR:-/nonexistent} || exit 1
 
@@ -26,8 +29,14 @@ case $1 in
     ./CONTROL/start-stop.sh start
     ;;
 
+  force-restart)
+    ./CONTROL/start-stop.sh stop
+    touch "${APKG_CFG_DIR}/active"
+    ./bin/certbot-renew --force-renewal
+    ;;
+
   *)
-    echo "usage: $0 {start|stop|restart}"
+    echo "usage: $0 {start|stop|restart|force-restart}"
     exit 1
     ;;
 
