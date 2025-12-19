@@ -76,7 +76,7 @@ Please refer to the upstream software documentation for details on their respect
 
 ## Links <a name="links"></a>
 
-  * Asustor tutorial blog website: [https://blog.cappysan.dev/](https://blog.cappysan.dev/)
+  * Cappysan's Asustor home lab tutorial: [https://blog.cappysan.dev/asustor/index.html](https://blog.cappysan.dev/asustor/index.html)
   * Cappysan's Asustor applications website: [https://asustor.cappysan.dev/](https://asustor.cappysan.dev/)
   * GitLab: [https://gitlab.com/cappysan/asustor/certbot](https://gitlab.com/cappysan/asustor/certbot)
   * GitHub: [https://github.com/cappysan/asustor-certbot](https://github.com/cappysan/asustor-certbot)
