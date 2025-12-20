@@ -46,7 +46,7 @@ fi
 
 logger "Requesting new certificate..."
 echo certbot certonly "${@}" ${commandline} -d "${domains} (...)" >&2
-if /usr/local/AppCentral/cappysan-certbot/bin/certbot certonly "${@}" --post-hook "run-parts ./renewal-hooks/deploy/" \
+if /usr/local/AppCentral/cappysan-certbot/bin/certbot certonly "${@}" --post-hook "run-parts $(pwd)/renewal-hooks/deploy/" \
     -n -m "${email}" --agree-tos ${commandline} \
     -d "${domains}" 2>&1 | tee /tmp/certbot.log; then
 

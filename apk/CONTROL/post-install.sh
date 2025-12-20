@@ -14,6 +14,13 @@ env | grep APKG | grep -v " " | sort > ${APKG_PKG_DIR}/.env.install
 # Ensure permissions are limited to root user for the application folder.
 chown -R root:root ${APKG_PKG_DIR}
 
+# Create a configuration folder for this application
+if test ! -d ${APKG_CFG_DIR}; then
+  mkdir -p ${APKG_CFG_DIR}
+  chown admin:root ${APKG_CFG_DIR}
+  chmod 750 ${APKG_CFG_DIR}
+fi
+
 # ------------------------------------------------------------------------------
 # First, install a pipx application in a temporary folder
 pip3 install --target ${APKG_TEMP_DIR} --force-reinstall --no-warn-script-location --progress-bar off --root-user-action=ignore --upgrade pipx
@@ -43,13 +50,6 @@ pipx inject -f certbot certbot-dns-sakuracloud==${APKG_PKG_VER%-*}
 pipx inject -f certbot certbot-nginx==${APKG_PKG_VER%-*}
 
 
-# ------------------------------------------------------------------------------
-# Create a configuration folder for this application
-if test -d ${APKG_CFG_DIR}; then
-  mkdir -p ${APKG_CFG_DIR}
-  chown admin:root ${APKG_CFG_DIR}
-  chmod 750 ${APKG_CFG_DIR}
-fi
 
 # Copy available configurations if they don't exist
 rsync -av --inplace --ignore-existing ${APKG_PKG_DIR}/conf.dist/ ${APKG_CFG_DIR}
