@@ -61,8 +61,8 @@ mkdir -p ${APKG_CFG_DIR}/letsencrypt/renewal-hooks/deploy
 cp -rv ${APKG_PKG_DIR}/renewal-hooks/deploy/* ${APKG_CFG_DIR}/letsencrypt/renewal-hooks/deploy/
 
 # Make backup of the crontab
-if test ! -f ${APKG_CFG_DIR}/crontab.$(date +%Y-%m-%d_%H%M%Y).bak; then
-  crontab -l > ${APKG_CFG_DIR}/crontab.$(date +%Y-%m-%d_%H%M%Y).bak
+if test ! -f ${APKG_CFG_DIR}/crontab.$(date +%Y-%m-%d_%H%M).bak; then
+  crontab -l > ${APKG_CFG_DIR}/crontab.$(date +%Y-%m-%d_%H%M).bak
 fi
 
 # Add a line to crontab

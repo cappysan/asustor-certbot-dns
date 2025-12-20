@@ -34,11 +34,18 @@ ln -sf -T ${APKG_CFG_DIR}/letsencrypt /etc/letsencrypt
 email=$(head -c10 /dev/urandom | md5sum | head -c14)@gmail.com
 domains="$(cat ${APKG_CFG_DIR}/domains.conf)"
 provider="$(cat ${APKG_CFG_DIR}/provider.conf | xargs)"
-commandline="$(cat ${APKG_CFG_DIR}/${provider}.cmdline.conf)"
+if test -f ${APKG_CFG_DIR}/cmdline.conf; then
+  commandline="$(cat ${APKG_CFG_DIR}/cmdline.conf)"
+else
+  if test -f ${APKG_CFG_DIR}/credentials.conf; then
+    commandline="--dns-${provider} --dns-${provider}-credentials ${APKG_CFG_DIR}/credentials.conf"
+  else
+    commandline="--dns-${provider} --dns-${provider}-credentials /share/Configuration/certbot/${provider}.conf"
+  fi
+fi
 
-# Use --manual-auth-hook and --manual-cleanup-hook?
 logger "Requesting new certificate..."
-echo /usr/local/AppCentral/cappysan-certbot/bin/certbot certonly "${@}" -n -m "${email}" --agree-tos ${commandline} -d "${domains}" >&2
+echo certbot certonly "${@}" ${commandline} -d "${domains} (...)" >&2
 if /usr/local/AppCentral/cappysan-certbot/bin/certbot certonly "${@}" --post-hook "run-parts ./renewal-hooks/deploy/" \
     -n -m "${email}" --agree-tos ${commandline} \
     -d "${domains}" 2>&1 | tee /tmp/certbot.log; then
